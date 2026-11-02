@@ -10,6 +10,7 @@ The skill also covers knowing when to break the grid: dropping the music so one 
 
 - **Decision order**: measure the song, set the clock, lay pages on bars, place the hits, space the poses, change pages, set the type, make the sound, decide where to skip, check, and play it live if it's for a web page.
 - **The song**: tempo from onsets, checking that the grid holds, bars, phrases, drops and big kicks, cutting the excerpt exact to the sample, half-time feel.
+- **The tool**: Remotion proposed by default, with its setup, config and render commands.
 - **The clock**: a pose as the song's eighth note, authoring on a 200ms pose, one clock for the whole video, pages on bar lines, changing lengths by whole bars, Remotion wiring, a 60fps smooth variant.
 - **Poses**: picking curves by their poses, a move's first step, hand-placed jitter and landing, zooms that grow by the same factor each pose, and rules for clicks, carets, spinners, rolled marks, counters, cursors and typing.
 - **Hits and transitions**: what lands on which drum, and seven kinds of page change, none of which fades.

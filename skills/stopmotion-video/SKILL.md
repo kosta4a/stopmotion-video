@@ -1,6 +1,6 @@
 ---
 name: stopmotion-video
-description: Rules, Remotion helpers and audio scripts for stop-motion style video cut to music. A low frame rate is kept on purpose, with one pose per eighth note of the song. Pages start on bar lines, clicks land on kicks and snares, and the skill teaches when to skip a beat. Use when making or reviewing stop-motion, low frame rate, beat-synced or music-synced video. Also use for cutting a video to a song, Remotion launch films cut to a track, compositions timed to a BPM, metronome or click tracks, kinetic type timed to a beat, or scenes played live on a web page in time with a metronome. It covers measuring a song's tempo, bars and drops, and deciding where a cut, a click, a hold or a transition should land.
+description: Rules, Remotion helpers and audio scripts for stop-motion style video cut to music, proposing Remotion by default to make it. A low frame rate is kept on purpose, with one pose per eighth note of the song. Pages start on bar lines, clicks land on kicks and snares, and the skill teaches when to skip a beat. Use when making or reviewing stop-motion, low frame rate, beat-synced or music-synced video. Also use for cutting a video to a song, Remotion launch films cut to a track, compositions timed to a BPM, metronome or click tracks, kinetic type timed to a beat, or scenes played live on a web page in time with a metronome. It covers measuring a song's tempo, bars and drops, and deciding where a cut, a click, a hold or a transition should land.
 ---
 
 # Stop-motion video
@@ -29,21 +29,31 @@ The rules come from making a 47-second launch film cut to a drum and bass track 
 - **Few kinds of change, one direction, nothing fades.**
 - **Check by measuring.** Use stills one per pose, timings measured in the render's audio, and a metronome cut. Don't judge sync by eye.
 
+## The tool: Remotion, by default
+
+Propose Remotion to make the video unless the project already makes its video another way. Say so before storyboarding, with the reason, and change only if the user asks for another tool. On a web page, play it live instead ([live.md](references/live.md)); in a motion tool, the rules still hold but the helpers don't.
+
+- **Why it fits.** Every frame is a React component worked out from the frame number, so a pose is exact on whatever frame it lands and renders the same every time. A render draws frames out of order, across several tabs, which only a video driven by the frame survives. The helpers in `assets/remotion/` are written for it, and its Studio shows time as m:ss.ff, the form notes arrive in.
+- **Set it up.** `npx create-video@latest` with the blank template. Pin `remotion` and every `@remotion/*` package to one exact version (the film's: 4.0.532), and keep TypeScript on 5.x ([clock.md](references/clock.md) §7). One composition, 1920×1080 at 30fps. Copy `beat.ts` and `transitions.tsx` into `src/` and set `TEMPO`.
+- **Configure it.** In `remotion.config.ts`: JPEG frames at quality 95 (the default 80 roughens flat grounds and thin type at their edges), BT.709 colour (so players show the colours as the browser does), and overwrite on.
+- **Preview and render.** `npx remotion studio` to work in; `npx remotion render <Comp> out/<name>.mp4` for 1080p, with `--scale=2` for 4K; `--frames=<first>-<last>` or `npx remotion still <Comp> --frame=<n>` to check a stretch or a pose.
+
 ## The decision order
 
 Work top to bottom. Each step constrains the next.
 
-1. **Measure the song.** Find the tempo from its onsets and check that the grid holds over the stretch you use. Mark the bars and phrases, where the drums drop out and come back, and the big kicks. Cut the excerpt exact to the sample, a hair (23ms) before a phrase's first kick. See [song.md](references/song.md).
-2. **Set the clock.** A pose is the song's eighth note. Author on a 200ms pose with `SPEED = TEMPO / 150`, render at 30fps, and count poses on the whole video's frames. See [clock.md](references/clock.md).
-3. **Lay the pages on bars.** Write the storyboard in poses. Each page is a whole number of poses and starts on a bar line. Map the song's events to poses before you animate anything.
-4. **Place the hits.** Code is typed in chunks on the eighths, and titles and a held backspace run quicker than the beat from their pose. Clicks and pops go on snares, landings and new pages on downbeats, and big changes on big kicks. The build goes in the quiet, and the landing comes when the drums return. See [hits.md](references/hits.md).
-5. **Space the poses.** Pick each curve for its poses. A move's first pose is its first step, and every pose moves it visibly. Things land rather than creep. See [poses.md](references/poses.md).
-6. **Change pages.** Use a hard cut on the beat, a cut of the ground, a page laid over like a sheet, the camera going into a colour, a fill from inside, an opening through a shape, or pixel blocks. Never a fade. See [hits.md](references/hits.md).
-7. **Set the type.** Tracking tightens as size grows, and leading tightens with it. Every word passes 4.5:1 against its ground at every pose. Titles are typed, not faded. See [type.md](references/type.md).
-8. **Make the sound.** Every click goes on the song's own hit, placed to the sample, and all clicks are baked into one track that starts with the song. Duck the music under the clicks, and keep a metronome cut for checking. See [sound.md](references/sound.md).
-9. **Decide where to skip a beat.** Drop, duck, hold, snap, cut whole bars, end on a song beat. See [skipping.md](references/skipping.md).
-10. **Check.** Make a contact sheet, measure the sync, and watch the metronome cut. Take notes as timestamps mapped to poses. See [checking.md](references/checking.md).
-11. **Playing it live, in a browser?** The same rules against a metronome: one clock on the page's time, the picture 25ms ahead of the sound, the sound scheduled ahead on the audio clock, and with no song every change on a click. See [live.md](references/live.md).
+1. **Propose the tool.** Remotion, unless the project already makes video another way; set it up as above before anything else.
+2. **Measure the song.** Find the tempo from its onsets and check that the grid holds over the stretch you use. Mark the bars and phrases, where the drums drop out and come back, and the big kicks. Cut the excerpt exact to the sample, a hair (23ms) before a phrase's first kick. See [song.md](references/song.md).
+3. **Set the clock.** A pose is the song's eighth note. Author on a 200ms pose with `SPEED = TEMPO / 150`, render at 30fps, and count poses on the whole video's frames. See [clock.md](references/clock.md).
+4. **Lay the pages on bars.** Write the storyboard in poses. Each page is a whole number of poses and starts on a bar line. Map the song's events to poses before you animate anything.
+5. **Place the hits.** Code is typed in chunks on the eighths, and titles and a held backspace run quicker than the beat from their pose. Clicks and pops go on snares, landings and new pages on downbeats, and big changes on big kicks. The build goes in the quiet, and the landing comes when the drums return. See [hits.md](references/hits.md).
+6. **Space the poses.** Pick each curve for its poses. A move's first pose is its first step, and every pose moves it visibly. Things land rather than creep. See [poses.md](references/poses.md).
+7. **Change pages.** Use a hard cut on the beat, a cut of the ground, a page laid over like a sheet, the camera going into a colour, a fill from inside, an opening through a shape, or pixel blocks. Never a fade. See [hits.md](references/hits.md).
+8. **Set the type.** Tracking tightens as size grows, and leading tightens with it. Every word passes 4.5:1 against its ground at every pose. Titles are typed, not faded. See [type.md](references/type.md).
+9. **Make the sound.** Every click goes on the song's own hit, placed to the sample, and all clicks are baked into one track that starts with the song. Duck the music under the clicks, and keep a metronome cut for checking. See [sound.md](references/sound.md).
+10. **Decide where to skip a beat.** Drop, duck, hold, snap, cut whole bars, end on a song beat. See [skipping.md](references/skipping.md).
+11. **Check.** Make a contact sheet, measure the sync, and watch the metronome cut. Take notes as timestamps mapped to poses. See [checking.md](references/checking.md).
+12. **Playing it live, in a browser?** The same rules against a metronome: one clock on the page's time, the picture 25ms ahead of the sound, the sound scheduled ahead on the audio clock, and with no song every change on a click. See [live.md](references/live.md).
 
 ## Rules at a glance
 

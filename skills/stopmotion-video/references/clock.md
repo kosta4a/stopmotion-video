@@ -58,6 +58,20 @@ Changing a page's length moves everything after it. Change it by whole bars, or 
 
 ## 7. Remotion wiring
 
+Remotion is the tool this skill proposes by default (SKILL.md, "The tool"). Its config, as the film's:
+
+```ts
+// remotion.config.ts: applies to `remotion studio` and `remotion render`
+import { Config } from "@remotion/cli/config";
+
+Config.setVideoImageFormat("jpeg");
+Config.setJpegQuality(95); // the default 80 roughens flat grounds and thin type
+Config.setColorSpace("bt709"); // players show the colours as the browser does
+Config.setOverwriteOutput(true);
+```
+
+Pin `remotion`, `@remotion/cli`, `@remotion/transitions` and `@remotion/fonts` to one exact version; mixed versions fail at render.
+
 Keep the storyboard as data, laid out in poses:
 
 ```tsx
